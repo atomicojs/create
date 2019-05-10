@@ -3,12 +3,12 @@
 	"version": "0.0.0",
 	"description": "{{description}}",
 	"source": "src/index.js",
-	"module": "dist/{{name}}.mjs",
-	"unpkg": "dist/{{name}}.umd.js",
+	"main" : "module.js",
+	"module": "module.js",
 	"author": "{{author}}",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/"
+		"url": "https://github.com/{{author}}/{{name}}"
 	},
 	"scripts": {
 		"build": "rollup -c",
@@ -26,8 +26,8 @@
 		"jasmine-core": "^3.4.0",
 		"rollup": "^1.7.4",
 		"rollup-plugin-browsersync": "^1.0.0",
+		"rollup-plugin-delete": "^1.0.0",
 		"rollup-plugin-bundle-size": "^1.0.3",
-		"rollup-plugin-delete": "^0.2.1",
 		"rollup-plugin-node-resolve": "^4.0.1",
 		"rollup-plugin-postcss": "^2.0.3",
 		"rollup-plugin-sucrase": "^2.1.0",

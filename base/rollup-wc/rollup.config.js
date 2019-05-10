@@ -1,24 +1,20 @@
 import pkg from "./package.json";
-import size from "rollup-plugin-bundle-size";
-import resolve from "rollup-plugin-node-resolve";
-import { terser } from "rollup-plugin-terser";
-import sucrase from "rollup-plugin-sucrase";
 import del from "rollup-plugin-delete";
+import size from "rollup-plugin-bundle-size";
+import { terser } from "rollup-plugin-terser";
+import resolve from "rollup-plugin-node-resolve";
+import sucrase from "rollup-plugin-sucrase";
 import postcss from "rollup-plugin-postcss";
 import browsersync from "rollup-plugin-browsersync";
+
+let IS_DEV = process.env.ROLLUP_WATCH;
 
 let globals = {
 	"@atomico/core": "@atomico/core",
 	"@atomico/element": "@atomico/element"
 };
 
-let plugins = [
-	del({
-		targets: [pkg.module.replace(/\/[^\/]+$/, "")]
-	}),
-	resolve({
-		extensions: [".js", ".ts"]
-	}),
+let share = [
 	postcss({
 		minimize: true
 	}),
@@ -28,47 +24,51 @@ let plugins = [
 		jsxPragma: "h",
 		transforms: ["typescript", "jsx"]
 	})
-	/**
-	 * Optional configuration recommended for buble
-	 * coverage es6 >=95% in 2019(https://caniuse.com/)
-	 * install before: `yarn add -D rollup-plugin-buble`
-	 */
-	// buble({
-	// 		target: {
-	// 			chrome: 58,
-	// 			edge: 15,
-	// 			safari: 10
-	// 		},
-	// 		jsx: "h",
-	// 		objectAssign: "Object.assign"
-	// 	})
 ];
 
-if (process.env.ROLLUP_WATCH) {
-	plugins.push(browsersync());
-} else {
-	process.env.BUILD = "production";
-	plugins.push(terser());
+let plugins = {
+	dev: [
+		del({
+			targets: ["dist"]
+		}),
+		resolve({
+			extensions: [".js", ".ts"]
+		}),
+		terser(),
+		...share,
+		...(IS_DEV ? [browsersync(), size()] : [size()])
+	],
+	build: [...share, size()]
+};
+
+let bundles = [
+	{
+		input: pkg.source,
+		output: [
+			{
+				file: "dist/" + pkg.module,
+				format: "esm",
+				sourcemap: true,
+				globals
+			}
+		],
+		plugins: plugins.dev
+	}
+];
+
+if (!IS_DEV) {
+	bundles.push({
+		input: pkg.source,
+		output: [
+			{
+				file: pkg.module,
+				format: "esm",
+				sourcemap: true,
+				globals
+			}
+		],
+		plugins: plugins.build
+	});
 }
 
-plugins.push(size());
-
-export default {
-	input: pkg.source,
-	output: [
-		{
-			name: pkg.name,
-			file: pkg.unpkg,
-			format: "umd",
-			sourcemap: true,
-			globals
-		},
-		{
-			file: pkg.module,
-			format: "esm",
-			sourcemap: true,
-			globals
-		}
-	],
-	plugins
-};
+export default bundles;

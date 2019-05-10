@@ -1,55 +1,33 @@
-# rollup modern wc
+# {{customElement}}
 
-This configuration allows the creation of a modern and light web-component based on rollup and atomico
+This is a base configuration created by [UpperCod](https://github.com/uppercod) to work with [@atomico/element](https://github.com/atomicojs/element) + [@atomico/core](https://github.com/atomicojs/core), its objective is the publication of web-components in NPM, the generated bundle is of the `ESM` type, by default it is located in the root directory under the name `module.js`, this also generates an index.html plus a dist directory to teach the preview of the web-component, ideal for github pages.
 
-## Script
+## scripts
 
-```bash
-# development mode
-npm run dev
-# production mode
-npm run build
-```
-
-## Directory
-
-```bash
-/src
-  index.js #entry code
-/test
-/dist #this directory is removed with each rollup cycle
-index.html
-```
-
-## package.json
-
-By default, rollup loads the initial configuration from package.json:
-
-```bash
+```json
 {
-	"source": "src/index.js", # define the input file for rollup
-	"module": "dist/my-wc.mjs", # define the module output mjs
-	"unpkg": "dist/my-wc.umd.js", # define the output of umd module
+    "scripts": {
+		"build": "rollup -c",
+		"dev": "rollup -c -w",
+		"test": "karma start --single-run --browsers ChromeHeadless karma.conf.js",
+		"prepare": "npm run build && npm run test"
+	}
 }
 ```
 
-## support
+## Installation of {{customElement}}
 
-### CSS
+### package
 
-The css is supported by the plugin [rollup-plugin-postcss](https://github.com/egoist/rollup-plugin-postcss), this librarian allows to extract the css from the
-
-```js
-// inline inject css
-import "style.js";
-// get string css
-import css from "style.css";
+```bash
+# npm
+npm install {{customElement}}
+# yarn
+yarn add {{customElement}}
 ```
 
-### JS Y TS
+### unpkg
 
-supported by [rollup-plugin-sucrase](https://github.com/rollup/rollup-plugin-sucrase), this library allows manipulation of non-standardized JS and TS code.
-
-## test
-
-The test stack is based on [karma](https://karma-runner.github.io/latest/index.html), [jasmine](https://jasmine.github.io/) and chrome, check the `/test` folder this has a small example of use
+```html
+<script type="module" src="http://unpkg.com/{{customElement}}?module"></script>
+```
