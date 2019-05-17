@@ -3,7 +3,8 @@
 	"short_name": "{{name}}",
 	"theme_color": "#232329",
 	"background_color": "#232329",
-	"display": "standalone",
+	"display": "fullscreen",
+	"orientation": "portrait",
 	"start_url": "/",
 	"icons": [
 		{

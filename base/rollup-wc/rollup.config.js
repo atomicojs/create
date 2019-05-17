@@ -4,7 +4,7 @@ import size from "rollup-plugin-bundle-size";
 import { terser } from "rollup-plugin-terser";
 import resolve from "rollup-plugin-node-resolve";
 import sucrase from "rollup-plugin-sucrase";
-import postcss from "rollup-plugin-postcss";
+import importCss from "@atomico/rollup-plugin-import-css";
 import browsersync from "rollup-plugin-browsersync";
 
 let IS_DEV = process.env.ROLLUP_WATCH;
@@ -15,9 +15,7 @@ let globals = {
 };
 
 let share = [
-	postcss({
-		minimize: true
-	}),
+	importCss(),
 	sucrase({
 		production: true,
 		exclude: ["node_modules/**"],

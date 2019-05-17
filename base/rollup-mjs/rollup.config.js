@@ -3,7 +3,7 @@ import resolve from "rollup-plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
 import sucrase from "rollup-plugin-sucrase";
 import del from "rollup-plugin-delete";
-import postcss from "rollup-plugin-postcss";
+import importCss from "@atomico/rollup-plugin-import-css";
 import browsersync from "rollup-plugin-browsersync";
 import workbox from "@atomico/rollup-plugin-workbox";
 
@@ -16,9 +16,7 @@ let plugins = [
 	resolve({
 		extensions: [".js", ".ts"]
 	}),
-	postcss({
-		minimize: true
-	}),
+	importCss(),
 	sucrase({
 		production: true,
 		exclude: ["node_modules/**"],

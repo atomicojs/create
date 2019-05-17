@@ -29,8 +29,8 @@
 		"rollup-plugin-delete": "^1.0.0",
 		"rollup-plugin-bundle-size": "^1.0.3",
 		"rollup-plugin-node-resolve": "^4.0.1",
-		"rollup-plugin-postcss": "^2.0.3",
 		"rollup-plugin-sucrase": "^2.1.0",
-		"rollup-plugin-terser": "^4.0.4"
+		"rollup-plugin-terser": "^4.0.4",
+		"@atomico/rollup-plugin-import-css": "^1.0.3"
 	}
 }

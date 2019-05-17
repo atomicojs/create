@@ -1,16 +1,10 @@
 import { h, customElement } from "@atomico/element";
+import style from "./style.css";
 
 function Tag({ message }) {
 	return (
 		<host shadowDom>
-			<style>{`
-				@import url("https://fonts.googleapis.com/css?family=Muli:400,900");
-				:host {
-					font-family: "Muli", sans-serif;
-					font-size: 50px;
-					text-align: center;
-				}
-			`}</style>
+			<style>{style}</style>
 			👋 {{ customElement }} {message}
 		</host>
 	);

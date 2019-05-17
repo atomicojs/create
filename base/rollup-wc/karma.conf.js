@@ -18,9 +18,7 @@ module.exports = function(config) {
 				require("rollup-plugin-node-resolve")({
 					extensions: [".js", ".ts"]
 				}),
-				require("rollup-plugin-postcss")({
-					minimize: true
-				}),
+				require("@atomico/rollup-plugin-import-css")(),
 				require("rollup-plugin-sucrase")({
 					production: true,
 					exclude: ["node_modules/**"],

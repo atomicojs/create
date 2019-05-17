@@ -11,13 +11,12 @@ const bundle = {
 
 let dependencies = {
 	app: `{
-		"@atomico/core": "^1.4.x",
+		"@atomico/core": "^1.5.x",
 		"@atomico/router": "^0.1.x",
-		"@atomico/element": "^0.6.x",
-		"hostcss": "^0.1.x"
+		"@atomico/element": "^0.6.x"
 	}`,
 	wc: `{
-		"@atomico/core": "^1.4.x",
+		"@atomico/core": "^1.5.x",
 		"@atomico/element": "^0.6.x"
 	}`
 };
