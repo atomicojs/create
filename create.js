@@ -20,7 +20,10 @@ function exec(cmd) {
 
 async function autorun() {
 	let exit;
-	let onCancel = () => console.log(":::cancel:::");
+	let onCancel = () => {
+		exit = true;
+		console.log(`\nExit`);
+	};
 
 	console.log("\nWelcome to Atomico, let's create your project\n");
 
@@ -39,6 +42,8 @@ async function autorun() {
 		],
 		{ onCancel }
 	);
+
+	if (exit) return;
 
 	let base = path.resolve(__dirname, "base/" + bundle.app);
 
