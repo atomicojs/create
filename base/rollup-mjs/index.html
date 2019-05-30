@@ -4,15 +4,15 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>{{name}}</title>
-		<meta name="description" content="{{description}}"> 
+		<title>{{{title}}}</title>
+		<meta name="description" content="{{{description}}}"> 
 		<link rel='manifest' href='manifest.json'>
 		<link rel="icon" type="image/png" sizes="128x128" href="img/icons/icon-128x128.png">
 		<link rel="icon" type="image/png" sizes="512x512" href="img/icons/icon-512x512.png">
 		<meta name="theme-color" content="#232329">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-title" content="{{name}}">
+		<meta name="apple-mobile-web-app-title" content="folder">
 		<link rel="apple-touch-icon" href="img/icons/icon-128x128.png">
 		<style>
 			html,
@@ -25,8 +25,8 @@
 		</style>
 	</head>
 	<body>
-		<wc-emoji show></wc-emoji>
-		<script type="module" src="dist/index.js"></script>
+		<hello-word></hello-word>
+		<script type="module" src="./src/index.js"></script>
 		<!--Delete comment to activate PWA
 		<script>
 			if ("serviceWorker" in navigator) {

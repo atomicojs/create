@@ -1,18 +1,14 @@
-import pkg from "./package.json";
+import inputHTML from "@atomico/rollup-plugin-input-html";
 import resolve from "rollup-plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
 import sucrase from "rollup-plugin-sucrase";
-import del from "rollup-plugin-delete";
+import serve from "rollup-plugin-serve";
 import importCss from "@atomico/rollup-plugin-import-css";
-import browsersync from "rollup-plugin-browsersync";
 import workbox from "@atomico/rollup-plugin-workbox";
-
-let publicDir = pkg.output.replace(/\/[^\/]+$/, "");
+import sizes from "@atomico/rollup-plugin-sizes";
 
 let plugins = [
-	del({
-		targets: [pkg.output]
-	}),
+	inputHTML(),
 	resolve({
 		extensions: [".js", ".ts"]
 	}),
@@ -23,29 +19,40 @@ let plugins = [
 		jsxPragma: "h",
 		transforms: ["typescript", "jsx"]
 	}),
-	workbox({
-		globDirectory: publicDir,
-		globPatterns: ["index.html", "**/*.{js,css}"],
-		swDest: publicDir + "/sw.js",
-		navigateFallback: "index.html"
-	})
+	terser()
 ];
 
 if (process.env.ROLLUP_WATCH) {
-	plugins.push(browsersync({ single: true, server: publicDir }));
+	plugins.push(
+		serve({
+			open: true,
+			contentBase: "dist",
+			historyApiFallback: true
+		})
+	);
 } else {
-	process.env.BUILD = "production";
-	plugins.push(terser());
+	plugins.push(
+		workbox({
+			globDirectory: "./dist",
+			globPatterns: ["index.html", "**/*.{js,css}"],
+			swDest: "./dist/sw.js",
+			navigateFallback: "index.html"
+		})
+	);
 }
 
+plugins.push(sizes());
+
 export default {
-	input: pkg.source,
-	output: [
-		{
-			dir: pkg.output,
-			format: "esm",
-			sourcemap: true
-		}
-	],
-	plugins
+	input: "*.html",
+	output: {
+		dir: "dist",
+		format: "esm",
+		sourcemap: true
+	},
+	plugins,
+	onwarn(message) {
+		if (/Circular dependency/gi.test(message)) return;
+		console.error(message);
+	}
 };

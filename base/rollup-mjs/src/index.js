@@ -1,1 +1,1 @@
-import "./web-components/wc-emoji";
+import "./web-components/hello-word";
