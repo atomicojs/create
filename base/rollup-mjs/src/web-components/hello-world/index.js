@@ -2,7 +2,7 @@ import { h, customElement } from "atomico";
 import style from "./style.css";
 import Logo from "./logo";
 
-function HelloWord({ show }) {
+function Hello({ show }) {
 	return (
 		<host shadowDom>
 			<style>{style}</style>
@@ -16,6 +16,6 @@ function HelloWord({ show }) {
 	);
 }
 
-HelloWord.observables = { show: Boolean };
+Hello.observables = { show: Boolean };
 
-export default customElement("hello-word", HelloWord);
+export default customElement("hello-world", Hello);

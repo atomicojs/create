@@ -39,7 +39,7 @@ index.html
   		style.css
   # Components declared as web-components
   /web-components
-    /hello-word
+    /hello-world
       index.js
       style.css
 ```

@@ -1,1 +1,1 @@
-import "./web-components/hello-word";
+import "./web-components/hello-world";
