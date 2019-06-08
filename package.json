@@ -1,6 +1,6 @@
 {
 	"name": "@atomico/create",
-	"version": "0.6.3",
+	"version": "0.7.1",
 	"description": "",
 	"main": "src/index.js",
 	"scripts": {
@@ -20,6 +20,6 @@
 		"template-folder": "^1.4.1"
 	},
 	"bin": {
-		"atomico-proyect": "./create.js"
+		"atomico": "./create.js"
 	}
 }

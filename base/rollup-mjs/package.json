@@ -2,25 +2,25 @@
 	"name": "{{{name}}}",
 	"description": "{{{description}}}",
 	"version": "0.0.0",
-	"main": "dist/index.js",
+	"main": "lib/index.js",
 	"source": "index.html",
 	"scripts": {
 		"build": "rollup -c",
-		"dev": "rollup -c -w",
+		"watch": "rollup -c -w",
+		"server": "servor dist",
+		"dev": "npm-run-all --parallel watch server",
 		"prepare": "npm run build"
 	},
 	"dependencies": {
 		"atomico": ">=0.8"
 	},
 	"devDependencies": {
+		"@atomico/rollup-pack": "^0.1.5",
 		"@atomico/rollup-plugin-import-css": "^1.0.3",
-		"@atomico/rollup-plugin-input-html": "^0.3.0",
-		"@atomico/rollup-plugin-sizes": "^1.0.3",
-		"@atomico/rollup-plugin-workbox": "^0.0.1",
-		"rollup": "^1.7.4",
-		"rollup-plugin-node-resolve": "^4.0.1",
-		"rollup-plugin-serve": "^1.0.1",
-		"rollup-plugin-sucrase": "^2.1.0",
-		"rollup-plugin-terser": "^4.0.4"
+		"@babel/preset-react": "^7.0.0",
+		"npm-run-all": "^4.1.5",
+		"rollup": "^1.12.4",
+		"rollup-plugin-babel": "^4.3.2",
+		"servor": "^2.2.1"
 	}
 }
