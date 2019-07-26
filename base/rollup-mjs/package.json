@@ -6,7 +6,6 @@
 	"source": "index.html",
 	"scripts": {
 		"build": "rollup -c",
-		"server": "servor dist",
 		"dev": "rollup -c -w",
 		"prepare": "npm run build"
 	},
