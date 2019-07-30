@@ -9,6 +9,7 @@ function Hello({ show }) {
 			<Logo color="white" />
 			<h1>Hello Atomico</h1>
 			<p>Start editing to see some magic happen!</p>
+			{ show && <p>Now you can see me!</p> }
 			<a href="https://github.com/atomicojs/atomico" target="_blank">
 				Documentation
 			</a>
@@ -16,6 +17,6 @@ function Hello({ show }) {
 	);
 }
 
-Hello.observables = { show: Boolean };
+Hello.props = { show: Boolean };
 
 export default customElement("hello-world", Hello);
