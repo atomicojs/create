@@ -1,67 +1,81 @@
 #!/usr/bin/env node
+let https = require("https");
+let prompts = require("prompts");
+let download = require("download-git-repo");
 
-const { template } = require("template-folder");
-const prompts = require("prompts");
-const path = require("path");
-const child_process = require("child_process");
+let repo = "atomicojs/base";
 
-const bundle = {
-	app: "rollup-mjs"
-};
+let branches = `https://api.github.com/repos/${repo}/branches`;
 
-function exec(cmd) {
-	return new Promise((resolve, reject) => {
-		child_process.exec(cmd, err => {
-			if (err) reject(err);
-			else resolve();
-		});
-	});
+function getBranchs() {
+  return new Promise((resolve, reject) => {
+    https
+      .get(branches, { headers: { "user-agent": "node.js" } }, res => {
+        res.setEncoding("utf8");
+        let data = "";
+        res.on("data", chunk => (data += chunk));
+        res.on("end", () =>
+          resolve(
+            JSON.parse(data)
+              .filter(data => data.name != "master")
+              .map(data => data.name)
+          )
+        );
+      })
+      .on("error", reject);
+  });
 }
 
 async function autorun() {
-	let exit;
-	let onCancel = () => {
-		exit = true;
-		console.log(`\nExit`);
-	};
+  let branches = await getBranchs();
 
-	console.log("\nWelcome to Atomico, let's create your project\n");
+  console.log("\nWelcome to Atomico, let's create your project\n");
 
-	let data = await prompts(
-		[
-			{
-				type: "text",
-				name: "name",
-				message: "name?"
-			},
-			{
-				type: "text",
-				name: "description",
-				message: "description?"
-			}
-		],
-		{ onCancel }
-	);
+  let fields = [
+    {
+      type: "text",
+      name: "folder",
+      message: "Project destination folder?"
+    },
+    {
+      type: "select",
+      name: "branch",
+      message: "Select the type of project",
+      choices: branches.map(branch => ({
+        title: branch
+          .replace(/-+/g, " ")
+          .replace(/^(\w)/, all => all.toUpperCase()),
+        value: branch
+      })),
+      initial: 0
+    }
+  ];
+  let isCancel;
+  let data = await prompts(fields, {
+    onCancel() {
+      isCancel = true;
+    }
+  });
+  if (isCancel) return;
 
-	if (exit) return;
+  let message = await new Promise(resolve => {
+    let select = `${repo}#${data.branch}`;
+    download(select, data.folder, err => {
+      if (err) resolve(`error downloading branch ${select}`);
+      resolve(
+        [
+          "",
+          `Your project has been created successfully, next steps:`,
+          `1. cd ./${data.folder}`,
+          `2. npm install`,
+          `3. npm run dev`,
+          `4. Enjoy Atomico!`
+        ].join("\n")
+      );
+    });
+  });
 
-	let base = path.resolve(__dirname, "base/" + bundle.app);
-
-	let dist = path.resolve(process.cwd(), data.name);
-
-	await template(base, dist, data);
-
-	console.log(
-		[
-			"",
-			`Ready!, check the folder ./${data.name} and ./${data.name}/README.md`,
-			"",
-			"Next step, commands!",
-			"",
-			`  cd ${data.name}`,
-			"  yarn | npm i"
-		].join("\n")
-	);
+  console.log(message);
 }
 
 autorun();
