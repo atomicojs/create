@@ -28,6 +28,7 @@ function getBranchs() {
 
 async function autorun() {
   let branches = await getBranchs();
+  let defBranch;
 
   console.log("\nWelcome to Atomico, let's create your project\n");
 
@@ -36,8 +37,11 @@ async function autorun() {
       type: "text",
       name: "folder",
       message: "Project destination folder?"
-    },
-    {
+    }
+  ];
+
+  if (branches.length > 1) {
+    fields.push({
       type: "select",
       name: "branch",
       message: "Select the type of project",
@@ -48,9 +52,13 @@ async function autorun() {
         value: branch
       })),
       initial: 0
-    }
-  ];
+    });
+  } else {
+    defBranch = branches[0];
+  }
+
   let isCancel;
+
   let data = await prompts(fields, {
     onCancel() {
       isCancel = true;
@@ -59,7 +67,8 @@ async function autorun() {
   if (isCancel) return;
 
   let message = await new Promise(resolve => {
-    let select = `${repo}#${data.branch}`;
+    let branch = defBranch || data.branch;
+    let select = `${repo}${branch ? "#" + branch : ""}`;
     download(select, data.folder, err => {
       if (err) resolve(`error downloading branch ${select}`);
       resolve(
