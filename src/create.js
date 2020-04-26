@@ -1,6 +1,7 @@
 import https from "https";
 import prompts from "prompts";
 import degit from "degit";
+import path from "path";
 
 let repo = "atomicojs/base";
 
@@ -92,13 +93,14 @@ async function autorun() {
     });
 
     emitter.clone(data.folder).then(() => {
+      let dest = path.relative(process.cwd(), data.folder).replace(/\\/g, "/");
       resolve(
         [
           "",
           `Your project has been created successfully, next steps:`,
-          `1. cd ./${data.folder}`,
+          `1. cd ${dest}`,
           `2. npm install`,
-          `3. npm run dev`,
+          `3. npm start`,
           `4. Enjoy Atomico!`,
         ].join("\n")
       );
