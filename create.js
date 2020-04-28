@@ -20731,6 +20731,7 @@ async function autorun() {
     {
       type: "text",
       name: "folder",
+      initial: "./",
       message: "Project destination folder?",
     },
   ];
@@ -20764,6 +20765,7 @@ async function autorun() {
   let message = await new Promise((resolve) => {
     let branch = defBranch || data.branch;
     let select = `github:${repo}${branch ? "#" + branch : ""}`;
+    let dest = path.relative(process.cwd(), data.folder).replace(/\\/g, "/");
 
     const emitter = degit(select);
 
@@ -20772,15 +20774,18 @@ async function autorun() {
     });
 
     emitter.clone(data.folder).then(() => {
-      let dest = path.relative(process.cwd(), data.folder).replace(/\\/g, "/");
       resolve(
         [
           "",
           `Your project has been created successfully, next steps:`,
-          `1. cd ${dest}`,
-          `2. npm install`,
-          `3. npm start`,
-          `4. Enjoy Atomico!`,
+          ...(dest
+            ? [
+                `1. cd ${dest}`,
+                `2. npm install`,
+                `3. npm start`,
+                `4. Enjoy Atomico!`,
+              ]
+            : [`1. npm install`, `2. npm start`, `3. Enjoy Atomico!`]),
         ].join("\n")
       );
     });
