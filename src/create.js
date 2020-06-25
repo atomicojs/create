@@ -34,6 +34,7 @@ async function getBranchs() {
           pkg,
         };
       })
+      .filter(({ pkg }) => !pkg.meta.draft)
   );
 }
 
