@@ -67,7 +67,7 @@ async function autorun() {
       initial: 0,
     });
   } else {
-    defBranch = branches[0];
+    defBranch = branches[0].id;
   }
 
   let isCancel;
