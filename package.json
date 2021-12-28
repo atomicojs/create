@@ -1,8 +1,8 @@
 {
   "name": "@atomico/create",
-  "version": "0.12.2",
+  "version": "0.12.3",
   "description": "",
-  "main": "src/create.cjs",
+  "main": "create.cjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "rollup -c -w",
