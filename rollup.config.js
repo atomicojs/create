@@ -3,7 +3,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 
 export default {
-  input: "src/create.js",
+  input: "src/create.mjs",
   output: {
     file: "create.cjs",
     format: "cjs",

@@ -19,8 +19,11 @@ function requestJson(url) {
       .on("error", reject);
   });
 }
-
-async function getBranchs() {
+/**
+ *
+ * @param {boolean} showDraft
+ */
+async function getBranchs(showDraft) {
   let data = await requestJson(branches);
   return Promise.all(
     data
@@ -34,11 +37,13 @@ async function getBranchs() {
           pkg,
         };
       })
-  ).then((data) => data.filter(({ pkg }) => !pkg.meta.draft));
+  ).then((data) =>
+    data.filter(({ pkg }) => (showDraft ? true : !pkg.meta.draft))
+  );
 }
 
 async function autorun() {
-  let branches = await getBranchs();
+  let branches = await getBranchs(process.argv.includes("--show-draft"));
 
   let defBranch;
 
