@@ -5,7 +5,7 @@ import json from "@rollup/plugin-json";
 export default {
   input: "src/create.js",
   output: {
-    file: "create.js",
+    file: "create.cjs",
     format: "cjs",
     banner: "#!/usr/bin/env node",
   },
