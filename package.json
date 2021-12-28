@@ -1,6 +1,6 @@
 {
   "name": "@atomico/create",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "description": "",
   "main": "src/create.mjs",
   "publishConfig": {
@@ -16,7 +16,5 @@
     "degit": "^2.8.0",
     "prompts": "^2.4.0"
   },
-  "bin": {
-    "atomico": "./bin.mjs"
-  }
+  "bin": "./bin.mjs"
 }
