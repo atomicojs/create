@@ -1,8 +1,8 @@
 {
   "name": "@atomico/create",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/create.cjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "rollup -c -w",
@@ -22,7 +22,7 @@
     "degit": "^2.8.0"
   },
   "bin": {
-    "atomico": "./create.js"
+    "atomico": "./create.cjs"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
