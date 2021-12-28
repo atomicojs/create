@@ -1,6 +1,6 @@
 {
-  "name": "@atomico/create",
-  "version": "0.13.4",
+  "name": "create-atomico",
+  "version": "1.0.0",
   "description": "",
   "main": "src/create.mjs",
   "publishConfig": {
