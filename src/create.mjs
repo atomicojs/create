@@ -1,5 +1,4 @@
 import https from "https";
-import prompts from "prompts";
 import degit from "degit";
 import path from "path";
 
@@ -46,7 +45,7 @@ async function getBranchs(showDraft) {
  *
  * @param {boolean} [showDraft]
  */
-async function autorun(showDraft) {
+export default async function create(showDraft) {
   let branches = await getBranchs(showDraft);
 
   let defBranch;
@@ -80,6 +79,8 @@ async function autorun(showDraft) {
   }
 
   let isCancel;
+
+  const { default: prompts } = await import("prompts");
 
   let data = await prompts(fields, {
     onCancel() {
@@ -119,5 +120,3 @@ async function autorun(showDraft) {
 
   console.log(message);
 }
-
-autorun(process.argv.includes("--show-draft"));

@@ -1,14 +1,8 @@
 {
   "name": "@atomico/create",
-  "version": "0.12.5",
+  "version": "0.13.0",
   "description": "",
-  "main": "create.cjs",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "rollup -c -w",
-    "build": "rollup -c",
-    "prepublishOnly": "npm run build"
-  },
+  "main": "src/create.mjs",
   "publishConfig": {
     "access": "public"
   },
@@ -16,20 +10,13 @@
     "type": "git",
     "url": "https://github.com/atomicojs/create"
   },
-  "author": "Matias Trujillo",
+  "author": "UpperCod",
   "license": "ISC",
   "dependencies": {
-    "degit": "^2.8.0"
+    "degit": "^2.8.0",
+    "prompts": "^2.4.0"
   },
   "bin": {
-    "atomico": "./create.cjs"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^11.0.1",
-    "download-git-repo": "^3.0.2",
-    "prompts": "^2.4.0",
-    "rollup": "^2.35.1"
+    "atomico": "./bin.mjs"
   }
 }

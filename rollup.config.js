@@ -5,7 +5,7 @@ import json from "@rollup/plugin-json";
 export default {
   input: "src/create.mjs",
   output: {
-    file: "create.cjs",
+    outdir: "./dist",
     format: "cjs",
     banner: "#!/usr/bin/env node",
   },
