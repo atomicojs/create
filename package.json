@@ -16,7 +16,5 @@
     "degit": "^2.8.0",
     "prompts": "^2.4.0"
   },
-  "bin": {
-    "atomico": "./bin.mjs"
-  }
+  "bin": "./bin.mjs"
 }
