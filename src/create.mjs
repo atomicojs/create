@@ -42,8 +42,12 @@ async function getBranchs(showDraft) {
   );
 }
 
-async function autorun() {
-  let branches = await getBranchs(process.argv.includes("--show-draft"));
+/**
+ *
+ * @param {boolean} [showDraft]
+ */
+async function autorun(showDraft) {
+  let branches = await getBranchs(showDraft);
 
   let defBranch;
 
@@ -116,4 +120,4 @@ async function autorun() {
   console.log(message);
 }
 
-autorun();
+autorun(process.argv.includes("--show-draft"));
